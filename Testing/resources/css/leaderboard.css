@@ -1,0 +1,67 @@
+.table
+{
+    width:40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-center
+{
+    color:springgreen;
+    font-size: large;
+}
+
+.input-group
+{
+    margin:auto;
+    width:40%
+}
+
+.btn
+{
+    background-color: #50c878;
+    border-radius: 0%;
+}
+
+.input-label
+{
+    margin-left: 30%;
+    font-weight:bolder;
+    color:springgreen;
+    font-size:larger
+}
+
+.ranking
+{
+    color:#50c878;
+    font-weight:bold;
+}
+
+.alert-danger
+{
+    width:40%;
+    margin:auto;
+    text-align: center;
+}
+
+.alert-success
+{
+    width:40%;
+    margin:auto;
+    text-align: center;
+    background-color: #50c878;
+    border-radius: 5px;
+    color:black;
+}
+.score-img
+{
+    width:20px;
+    height:20px;
+    padding-bottom: 4px;
+    padding-top:0px;
+}
+
+.container
+{
+    zoom:1.6;
+}

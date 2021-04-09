@@ -1,0 +1,21 @@
+
+.jumbotron 
+{
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color:turquoise;
+  background-image: url("../img/middle.png");
+}
+
+.hd1
+{
+  text-align: center;
+  color:rgb(2, 2, 2);
+}
+
+.hd2
+{
+  text-align:center;
+  color:springgreen;
+  font-weight: bold;
+}

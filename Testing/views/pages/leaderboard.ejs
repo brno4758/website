@@ -1,0 +1,48 @@
+<!-- Home Page -->
+<%- include('../partials/header') %>
+<%- include('../partials/navBar') %>
+	<link rel="stylesheet" href="../../resources/css/leaderboard.css">
+	<div class="container">
+		<br>
+		<br>
+
+		<form action="/leaderboard/add_score" method="post">
+					<label class="input-label" for="exampleInputEmail1">Enter your time (Minutes.Seconds)</label>
+					<div class="input-group">	
+						<input type="float" class="form-control" name="score_input" placeholder="Enter Time">
+						<button type="submit" class="btn">Submit</button>
+					</div>		
+				
+					
+		</form>
+		<br>
+		<!--Table for Top 5 Personal Scores-->
+		<table class="table table-dark" id="personal_scores">
+			<thead>
+				<tr>
+					<th class="text-center" colspan="2">Top 5 Times<br><b><%- username %></b></th>	
+				</tr>
+			</thead>
+			<% if(player.length != 0) {%>
+			<% var num = 1 %>
+			<% if(player) {player.forEach(function(player){ %>
+					
+				<tr>
+					<td class="ranking"><%-num%></td>
+					<td style="padding-left: 100px;"><img class="score-img" src="../../resources/img/gem-1.png"><%- player.scores %></td>
+				</tr>
+				<% num = num + 1%>
+			<% });}} %>
+		</table>
+		<% if (error) { %>
+			<div class="alert alert-danger"><%- message %></div>
+		  <% } else if(message.length != 0) { %>
+			<div class="alert alert-success"><%- message %></div>
+		  <% } %>
+
+		<br>
+		<br>
+
+	</div>
+  
+<%- include('../partials/footer') %>

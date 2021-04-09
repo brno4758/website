@@ -1,0 +1,105 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navBar') %>
+  <link rel="stylesheet" href="../../resources/css/login.css">
+  <script src="../../resources/Js/login.js"></script>
+  <body class="center text-center">
+
+	  <br>
+	  <br>
+
+	  <div class="container">
+		  
+		<div class="d-flex justify-content-center h-100">
+			<div class="card">
+				<div class="card-header">
+					<h3>Sign In</h3>
+				</div>
+				<div class="card-body">
+					<form action="/login/login" method="post">
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" style="Height:86%;"><i class="fas fa-user"><img src="../../resources/img/user.png" width="30" height="30"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="username" name="userName">
+							
+						</div>
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" style="Height:86%;"><i class="fas fa-key"><img src="../../resources/img/pass.png" width="30" height="30"></i></span>
+							</div>
+							<input type="password" class="form-control" placeholder="password" name="password">
+						</div>
+						
+						<br>
+						<button class="btn btn-lg btn-primary" type="submit">Login</button>
+						</form>
+				</div>
+				<div class="card-footer">
+					<div class="d-flex justify-content-center links">
+						<p>Don't have an account?</p>
+						<a href="#">
+							<div class="text-center">
+								<a href="#myModal" class="btn btn-info" data-toggle="modal" onclick="openModal()">Create Account</a>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% if (error) { %>
+		<div class="alert alert-danger"><%- message %></div>
+	  <% } else if(success) { %>
+		<div class="alert alert-success"><%- message %></div>
+	  <% } %>
+<br /><br /><br /><br />
+<!-- Button to click to show the modal-->
+
+
+<!-- Modal HTML -->
+
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog modal-login">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="avatar">
+					<img src="https://www.tutorialrepublic.com/examples/images/avatar.png" alt="Avatar">
+				</div>
+				<h4 class="modal-title">Sign Up page</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<form action="/login/add_user" method="post">
+					<div class="form-group">
+						<input type="text" class="form-control" name="userName" placeholder="Username"
+							required="required">
+					</div>
+					<div class="form-group">
+						<input id="psw" type="password" class="form-control" name="password" placeholder="Password"
+							required="required">
+					</div>
+					<div class="form-group">
+						<input id="cpsw" type="password" class="form-control" name="confirm password"
+							placeholder="Confirm Password" required="required">
+					</div>
+					<div class="form-group">
+						<button id="my_submit_button" class="btn btn-primary btn-block login-btn" disabled>Sign Up</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div id="message" style="display:block">
+					<h3>Password must contain the following:</h3>
+					<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+					<p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+					<p id="number" class="invalid">A <b>number</b></p>
+					<p id="length" class="invalid">Minimum <b>8 characters</b></p>
+					<p id="match" class="invalid">Password and Confirm Password Match</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br /><br /><br />
+
+<%- include('../partials/footer') %>
