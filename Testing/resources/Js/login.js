@@ -87,6 +87,6 @@ function enableButton(letter, capital, number, length, match) {
         button.disabled = false;
     }
     else{
-        button.disable = true;
+        button.disabled = true;
     }
 }
