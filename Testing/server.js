@@ -32,15 +32,14 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
 //Global variables
-
+var loginSuccess = false;
+var curr_user = '';
 
 /******Get and Post Requests******/
 
 
 //Render Login
 app.get('/', function(req, res) {
-	var loginSuccess = false;
-	var curr_user = '';
 	res.render('pages/login',{
 		local_css:"",
 		my_title:"Home Page",
