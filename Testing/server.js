@@ -4,7 +4,8 @@ var bodyParser = require('body-parser'); //Ensure our body-parser tool has been 
 app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var session = require('express-session');
-app.use(session({secret: 'secret'}));
+const { v4: uuidv4 } = require('uuid');
+app.use(session({secret: uuidv4()}));
 
 //Create Database Connection
 var pgp = require('pg-promise')();
