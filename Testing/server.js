@@ -40,6 +40,8 @@ var curr_user = '';
 
 //Render Login
 app.get('/', function(req, res) {
+	loginSuccess = false;
+	curr_user ='';
 	res.render('pages/login',{
 		local_css:"",
 		my_title:"Home Page",
