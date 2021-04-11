@@ -8,10 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 app.use(session({
 	genid: function(req){
 		return uuidv4()
-	},
-	saveUninitialized: false,
-	secret: 'secret',
-	resave: false
+	}
 }));
 
 //Create Database Connection
