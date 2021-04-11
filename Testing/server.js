@@ -4,10 +4,10 @@ var bodyParser = require('body-parser'); //Ensure our body-parser tool has been 
 app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var session = require('express-session');
-const { uuidv4 } = require('uuidv4');
+const { v1: uuidv1 } = require('uuid');
 app.use(session({
 	genid: function(req){
-		return uuidv4()
+		return uuidv1()
 	},
 	saveUninitialized: false,
 	secret: 'secret',
@@ -82,7 +82,6 @@ app.post('/login/login' , function(req, res) {
 		}
 		else
 		{
-			loginSuccess = true;
 			req.session.name = username;
 			res.render('pages/home', {
 				my_title: "Home Page",
