@@ -6,7 +6,12 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
 const uuidBytes = uuidv4();
+console.log(typeof uuidBytes);
 console.log(uuidBytes);
+
+uuidBytes = tostring(uuidBytes);
+console.log(uuidBytes);
+console.log(typeof uuidBytes);
 app.use(session({secret: stringify(uuidBytes)}));
 
 //Create Database Connection
