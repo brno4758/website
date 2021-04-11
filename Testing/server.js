@@ -3,6 +3,15 @@ var app = express();
 var bodyParser = require('body-parser'); //Ensure our body-parser tool has been added
 app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+var session = require('express-session');
+app.use(session({
+	genid: function(req){
+		return uuidv4()
+	},
+	saveUninitialized: false,
+	secret: 'secret',
+	resave: false
+}));
 
 //Create Database Connection
 var pgp = require('pg-promise')();
@@ -31,17 +40,13 @@ app.set('view engine', 'ejs');
 //Use relative paths
 app.use(express.static(__dirname + '/'));
 
-//Global variables
-var loginSuccess = false;
-var curr_user = '';
-
 /******Get and Post Requests******/
 
 
 //Render Login
 app.get('/', function(req, res) {
-	loginSuccess = false;
-	curr_user ='';
+
+if(req.session.name===undefined){
 	res.render('pages/login',{
 		local_css:"",
 		my_title:"Home Page",
@@ -49,6 +54,10 @@ app.get('/', function(req, res) {
 		success: false,
 		message: ''
 	});
+}
+else{
+	res.render('pages/home');
+}
 });
 
 //Login post requests(username and password)
@@ -73,7 +82,7 @@ app.post('/login/login' , function(req, res) {
 		else
 		{
 			loginSuccess = true;
-			curr_user = username;
+			req.session.name = username;
 			res.render('pages/home', {
 				my_title: "Home Page",
 				error: false,
@@ -119,7 +128,7 @@ app.post('/login/add_user', function(req, res) {
 
 //Render Home
 app.get('/home', function(req,res) {
-	if(loginSuccess){
+	if(req.session.name != undefined){
 		res.render('pages/home', {
 			my_title: "Home Page",
 			message: ''
@@ -138,7 +147,7 @@ app.get('/home', function(req,res) {
 
 //Render How to Play
 app.get('/howto', function(req, res) {
-	if(loginSuccess){
+	if(req.session.name != undefined){
 		res.render('pages/howto', {
 			my_title: "How To Play Page"
 		})
@@ -156,7 +165,7 @@ app.get('/howto', function(req, res) {
 
 //Render Levels
 app.get('/level', function(req, res) {
-	if(loginSuccess)
+	if(req.session.name != undefined)
 	{
 		res.render('pages/level', {
 			my_title: "Levels Page"
@@ -175,9 +184,9 @@ app.get('/level', function(req, res) {
 
 //Render Leaderboard
 app.get('/leaderboard', function(req, res) {
-	if(loginSuccess)
+	if(req.session.name != undefined)
 	{
-		var load_personal = `Select * From scores_table Where username='${curr_user}' Order By scores ASC limit 5;`;
+		var load_personal = `Select * From scores_table Where username='${req.session.name}' Order By scores ASC limit 5;`;
 		db.task('get-everything', task => {
 			return task.batch([
 				task.any(load_personal)
@@ -187,7 +196,7 @@ app.get('/leaderboard', function(req, res) {
 			res.render('pages/leaderboard', {
 				my_title: "Leaderboard Page",
 				player: info[0],
-				username: curr_user,
+				username: req.session.name,
 				error: false,
 				message: ''
 				
@@ -198,7 +207,7 @@ app.get('/leaderboard', function(req, res) {
 			res.render('pages/leaderboard', {
 				my_title: "Leaderboard Page",
 				player: '',
-				username: curr_user,
+				username: req.session.name,
 				error: true,
 				message: "Invalid Score Input"
 			})
@@ -218,11 +227,11 @@ app.get('/leaderboard', function(req, res) {
 
 
 //Leaderboard (Send top 5 scores to table)
-//need to set curr_user
+
 app.post('/leaderboard/add_score', function(req, res) {
 	var score = req.body.score_input;
-	var update_score = `Insert Into scores_table(username, scores) Values('${curr_user}', ${score});`;
-	var load_scores = `Select * From scores_table Where username='${curr_user}' Order By scores ASC limit 5;`;
+	var update_score = `Insert Into scores_table(username, scores) Values('${req.session.name}', ${score});`;
+	var load_scores = `Select * From scores_table Where username='${req.session.name}' Order By scores ASC limit 5;`;
 	db.task('get-everything', task => {
 		return task.batch([
 			task.any(update_score),
@@ -234,7 +243,7 @@ app.post('/leaderboard/add_score', function(req, res) {
 		res.render('pages/leaderboard',{
 			my_title: "Leaderboard Page",
 			player: info[1],
-			username:curr_user,
+			username:req.session.name,
 			error: false,
 			message: "Time Added"
 		})
@@ -244,7 +253,7 @@ app.post('/leaderboard/add_score', function(req, res) {
 		res.render('pages/leaderboard', {
 			my_title: "Leaderboard Page",
 			player: '',
-			username:curr_user,
+			username:req.session.name,
 			error: true,
 			message: "Invalid Score Input"
 		})
@@ -254,7 +263,7 @@ app.post('/leaderboard/add_score', function(req, res) {
 
 //Render Game 
 app.get('/game', function(req, res) {
-	if(loginSuccess)
+	if(req.session.name != undefined)
 	{
 		res.render('pages/game', {
 			my_title: "Game Page"
