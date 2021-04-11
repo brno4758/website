@@ -5,7 +5,7 @@ app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var session = require('express-session');
 const { v1: uuidv1 } = require('uuid');
-// app.use(session({
+app.use(session({ uuidv1() }));
 // 	genid: function(req){
 // 		return uuidv1()
 // 	},
@@ -13,7 +13,7 @@ const { v1: uuidv1 } = require('uuid');
 // 	secret: 'secret',
 // 	resave: false
 // }));
-uuidv1();
+
 
 
 //Create Database Connection
