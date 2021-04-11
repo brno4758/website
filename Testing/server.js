@@ -9,10 +9,7 @@ const uuidBytes = uuidv4();
 console.log(typeof uuidBytes);
 console.log(uuidBytes);
 
-uuidBytes = tostring(uuidBytes);
-console.log(uuidBytes);
-console.log(typeof uuidBytes);
-app.use(session({secret: stringify(uuidBytes)}));
+app.use(session({secret: uuidBytes}));
 
 //Create Database Connection
 var pgp = require('pg-promise')();
