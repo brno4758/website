@@ -7,7 +7,7 @@ var session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
 const uuidBytes = uuidv4();
 console.log(uuidBytes);
-app.use(session({secret: uuidStringify(uuidBytes)}));
+app.use(session({secret: stringify(uuidBytes)}));
 
 //Create Database Connection
 var pgp = require('pg-promise')();
