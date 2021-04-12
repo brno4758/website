@@ -228,6 +228,7 @@ app.post('/leaderboard/add_score', function(req, res) {
 	var score = req.body.score_input;
 	var update_score = `Insert Into scores_table(username, scores) Values('${req.session.name}', ${score});`;
 	var load_scores = `Select * From scores_table Where username='${req.session.name}' Order By scores ASC limit 5;`;
+	console.log(update_score);
 	db.task('get-everything', task => {
 		return task.batch([
 			task.any(update_score),
