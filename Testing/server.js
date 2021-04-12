@@ -54,7 +54,10 @@ if(req.session.name===undefined){
 	});
 }
 else{
-	res.render('pages/home');
+	res.render('pages/home', {
+		my_title: "Home Page",
+		message: ''
+	});
 }
 });
 
