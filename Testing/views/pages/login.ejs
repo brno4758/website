@@ -42,13 +42,14 @@
 							</div>
 						</a>
 					</div>
+					<% if (error) { %>
+						<div class="alert alert-danger"><%- message %></div>
+					  <% } else if(success) { %>
+						<div class="alert alert-success"><%- message %></div>
+					  <% } %>
 				</div>
+
 			</div>
-			<% if (error) { %>
-				<div class="alert alert-danger"><%- message %></div>
-			  <% } else if(success) { %>
-				<div class="alert alert-success"><%- message %></div>
-			  <% } %>
 		</div>
 	</div>
 
