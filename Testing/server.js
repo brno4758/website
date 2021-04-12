@@ -64,6 +64,7 @@ app.post('/login/login' , function(req, res) {
 	var username = req.body.userName;
 	var password = req.body.password;
 	var verify = `select * from user_table where username='${username}' and password='${password}';`
+	console.log(verify);
 	db.any(verify)
 	.then(function(data) {
 		console.log(data.length);
