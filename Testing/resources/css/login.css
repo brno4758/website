@@ -134,3 +134,9 @@ input[type=submit] {
   left: -35px;
   content: '\00D7';
 }
+
+.alert
+{
+  width: 40%;
+  text-align: center;
+}
