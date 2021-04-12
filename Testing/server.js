@@ -64,7 +64,6 @@ app.post('/login/login' , function(req, res) {
 	var username = req.body.userName;
 	var password = req.body.password;
 	var verify = `select * from user_table where username='${username}' and password='${password}';`
-	console.log(verify);
 	db.any(verify)
 	.then(function(data) {
 		console.log(data.length);
@@ -102,7 +101,6 @@ app.post('/login/add_user', function(req, res) {
 	var new_user = req.body.userName;
 	var pass = req.body.password;
 	var insert_user = `Insert Into user_table (username, password) Values('${new_user}', '${pass}');`;
-	console.log(insert_user);
 	db.any(insert_user)
 		.then(function(data) {
 			res.render('pages/login', {
