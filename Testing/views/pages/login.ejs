@@ -44,14 +44,13 @@
 					</div>
 				</div>
 			</div>
-			<% if (error) { %>
-				<div class="alert alert-danger"><%- message %></div>
-			  <% } else if(success) { %>
-				<div class="alert alert-success"><%- message %></div>
-			  <% } %>
 		</div>
 	</div>
-	
+	<% if (error) { %>
+		<div class="alert alert-danger"><%- message %></div>
+	  <% } else if(success) { %>
+		<div class="alert alert-success"><%- message %></div>
+	  <% } %>
 <br /><br /><br /><br />
 <!-- Button to click to show the modal-->
 
