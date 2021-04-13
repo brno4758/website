@@ -1,13 +1,33 @@
 function openModal() {
           
+    var myUsername = document.getElementById("username");
+    var userLegallity = document.getElementById("userLegallity");
     var myInput = document.getElementById("psw");
     var confirmMyInput = document.getElementById("cpsw");
 	var letter = document.getElementById("letter");
 	var capital = document.getElementById("capital");
 	var number = document.getElementById("number");
-	var length = document.getElementById("length");    
+	var length = document.getElementById("length");
+    var legallity = document.getElementById("legallity");   
     var match = document.getElementById("match");
 
+    var illegalCharacter = /;|=/g;
+
+
+    //When the user starts to type something inside the username field
+    myUsername.onkeyup = function() {
+
+        //Validate legallity
+        if(myUsername.value.match(illegalCharacter)){
+            userLegallity.classList.remove("valid");
+            userLegallity.classList.add("invalid");
+        } else {
+            userLegallity.classList.remove("invalid");
+            userLegallity.classList.add("valid");
+        }
+
+        enableButton(letter, capital, number, length, match, legallity, userLegallity);
+    }
 
 	// When the user starts to type something inside the password field
 	myInput.onkeyup = function() {
@@ -17,9 +37,16 @@ function openModal() {
         var upperCaseLetters = /[A-Z]/g; // : Fill in the regular experssion for upperCaseLetters
         var numbers = /[0-9]/g; // : Fill in the regular experssion for digits
         var minLength = 8; // : Change the minimum length to what what it needs to be in the question 
-     
         
 
+        // Validate Legallity
+        if(myInput.value.match(illegalCharacter)){
+            legallity.classList.remove("valid");
+            legallity.classList.add("invalid");
+        } else {
+            legallity.classList.remove("invalid");
+            legallity.classList.add("valid");
+        }
 
         // Validate lowercase letters
         if(myInput.value.match(lowerCaseLetters)) {             
@@ -72,14 +99,14 @@ function openModal() {
                 }        
 
 
-    enableButton(letter, capital, number, length, match);
+    enableButton(letter, capital, number, length, match, legallity, userLegallity);
     }
 }
 
 
-function enableButton(letter, capital, number, length, match) {
+function enableButton(letter, capital, number, length, match, legallity, userLegallity) {
 
-    let result = letter.classList[0] === "valid" && capital.classList[0] === "valid" && number.classList[0] === "valid" && length.classList[0] ==="valid" && match.classList[0] === "valid";
+    let result = userLegallity.classList[0] === "valid" && legallity.classList[0] === "valid" && letter.classList[0] === "valid" && capital.classList[0] === "valid" && number.classList[0] === "valid" && length.classList[0] ==="valid" && match.classList[0] === "valid";
 
     let button = document.getElementById('my_submit_button');
     
