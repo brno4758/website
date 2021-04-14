@@ -1,3 +1,46 @@
+//Set global variable legal = "true" so signin is initially valid
+var legal = "true";
+
+function validateSignin(){
+
+    var myUser = document.getElementById("signinUsername");
+    var myPass = document.getElementById("signinPassword");
+    var illegalCharacter = /;|=/g; //Check if input includes ';' or '='
+
+    //As user inputs username check if it contains an illegalCharacter and disable button if it does
+    myUser.onkeyup = function() {
+        if(myUser.value.match(illegalCharacter)){
+            legal = "false";
+        } else {
+            legal = "true";
+        }
+        enableSigninButton();
+    }
+
+    //As user inputs password check if it contains an illegalCharacter and disable button if it does
+    myPass.onkeyup = function() {
+        if(myPass.value.match(illegalCharacter)){
+            legal = "false";
+        } else {
+            legal = "true";
+        }
+        enableSigninButton();
+    }
+}
+
+
+function enableSigninButton(){
+
+    let button = document.getElementById('my_signin_button');
+
+    if(legal === "true") {
+        button.disabled = false;
+    }
+    else{
+        button.disabled = true;
+    }
+}
+
 function openModal() {
           
     var myUsername = document.getElementById("username");
